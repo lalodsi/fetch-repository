@@ -1,0 +1,50 @@
+.Search_Menu{
+    display: flex;
+    width: 80%;
+    
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid green; */
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: white;
+    margin-bottom: 15px;
+  }
+  
+  .Search_Bar{
+    display: flex;
+    flex-direction: row;
+  
+    color: inherit;
+    font-family: inherit;
+    
+    border: 2px solid honeydew;
+    border-radius: 0px 6px 6px 0px;
+  }
+  
+  .Search_Input{
+    width: 400px;
+    height: 30px;
+  
+    color: inherit;
+    font-family: inherit;
+    font-size: 20px;
+  
+    background-color: transparent;
+    border-style: none;
+    border-color: aliceblue;
+    border-left: 2px solid white;
+  }
+  
+  .Search_Button{
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    cursor: pointer;
+    border-color: white;
+  
+    background-color: transparent;
+  }
+  .Search_Button:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+  }

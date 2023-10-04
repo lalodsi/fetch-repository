@@ -1,0 +1,18 @@
+.Result{
+    min-height: 80px;
+}
+
+.Result:hover
+{
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.Result_Text{
+    width: fit-content;
+    position: relative;
+    left: 25px;
+    bottom: -25px;
+    font-size: 20px;
+    color: white;
+    position: relative;
+}

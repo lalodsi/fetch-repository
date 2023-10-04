@@ -1,0 +1,17 @@
+.LoginScreen{
+    background-color: aliceblue;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px;
+}
+
+.LoginScreen_Header{
+    font-size: 40px;
+}
+
+.LoginScreen_Subheader{
+    font-size: 15px;
+}
