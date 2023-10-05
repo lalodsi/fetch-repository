@@ -1,18 +1,39 @@
 .Result{
-    min-height: 80px;
+    min-height: 100px;
+    display: flex;
+    margin-bottom: 15px;
+    /* border: 2px solid white; */
+    justify-content: left;
+    padding: 10px;
 }
 
 .Result:hover
 {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(109, 81, 16, 0.961);
 }
 
-.Result_Text{
+.Result_Container{
+    margin-left: 15px;
+}
+
+.Result_Name{
     width: fit-content;
-    position: relative;
-    left: 25px;
-    bottom: -25px;
-    font-size: 20px;
+    font-size: 30px;
     color: white;
-    position: relative;
+}
+.Result_Age{
+    width: fit-content;
+    font-size: 15px;
+    color: white;
+}
+
+.Result_ImageBox{
+    max-width: 100px;
+    height: fit-content;
+}
+
+.Result_Image{
+    border: 2px solid white;
+    border-radius: 25px;
+    max-width: 100px;
 }
