@@ -1,6 +1,6 @@
 .Search_Menu{
     display: flex;
-    width: 80%;
+    width: 600px;
     
     display: flex;
     flex-direction: column;
@@ -8,10 +8,11 @@
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     color: white;
-    margin-bottom: 15px;
+    margin-bottom: 50px;
   }
   
   .Search_Bar{
+    width: 600px;
     display: flex;
     flex-direction: row;
   
@@ -23,7 +24,7 @@
   }
   
   .Search_Input{
-    width: 400px;
+    width: 570px;
     height: 30px;
   
     color: inherit;
@@ -40,8 +41,11 @@
     width: 30px;
     height: 30px;
     padding: 0px;
+    position: relative;
+    /* right: -274px; */
     cursor: pointer;
-    border-color: white;
+    border-style: none;
+    border-left: 2px solid white;
   
     background-color: transparent;
   }

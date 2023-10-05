@@ -99,7 +99,6 @@ function App() {
       {
         authenticated &&
         <>
-          Autenticado
           <SearchMenu
             searchText={searchText}
             setSearchText={setSearchText}
