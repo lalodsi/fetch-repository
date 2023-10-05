@@ -4,7 +4,8 @@
     
     display: flex;
     flex-direction: column;
-    /* border: 1px solid green; */
+
+    font-weight: 600;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     color: white;
@@ -23,19 +24,23 @@
     border-radius: 0px 6px 6px 0px;
   }
   
-  .Search_Input{
-    width: 570px;
-    height: 30px;
-  
-    color: inherit;
-    font-family: inherit;
-    font-size: 20px;
-  
-    background-color: transparent;
-    border-style: none;
-    border-color: aliceblue;
-    border-left: 2px solid white;
-  }
+.Search_Input{
+  width: 570px;
+  height: 30px;
+
+  color: inherit;
+  font-family: inherit;
+  font-size: 20px;
+
+  background-color: transparent;
+  border-style: none;
+  border-color: aliceblue;
+  border-left: 2px solid white;
+}
+
+.Search_Input::placeholder{
+  color: white;
+}
   
   .Search_Button{
     width: 30px;
