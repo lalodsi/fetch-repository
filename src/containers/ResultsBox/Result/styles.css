@@ -1,9 +1,12 @@
 .Result{
-    min-height: 100px;
+    height: 400px;
+    width: 300px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 15px;
-    /* border: 2px solid white; */
-    justify-content: left;
+    border: 2px solid white;
     padding: 10px;
 }
 
@@ -14,11 +17,14 @@
 
 .Result_Container{
     margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .Result_Name{
     width: fit-content;
-    font-size: 30px;
+    font-size: 40px;
     color: white;
 }
 .Result_Age{
@@ -35,5 +41,6 @@
 .Result_Image{
     border: 2px solid white;
     border-radius: 25px;
-    max-width: 100px;
+    max-height: 300px;
+    max-width: 300px;
 }

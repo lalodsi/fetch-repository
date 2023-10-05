@@ -42,18 +42,20 @@ const ResultsComponent: React.FC<ResultsComponentProps> = (props) => {
 
 
   return (
-    <div className='ResultBox'>
-      {
-        options.map((option: Dog, index: number) => {
-          return (
-            <Result
-              key={index}
-              value={option}
-              handleClick={clickHandler}
-            />
-          )
-        })
-      }
+    <>
+      <div className='ResultBox'>
+        {
+          options.map((option: Dog, index: number) => {
+            return (
+              <Result
+                key={index}
+                value={option}
+                handleClick={clickHandler}
+              />
+            )
+          })
+        }
+      </div>
       <div className='ResultBox_ShowMore'>
         {
           results?.prev &&
@@ -64,14 +66,7 @@ const ResultsComponent: React.FC<ResultsComponentProps> = (props) => {
           <ButtonComponent text='next' handleClick={handleNext} />
         }
       </div>
-      {/* {
-        (optionsSize - optionsQuantity > 0)?
-        <div className='ResultBox_ShowMore' onClick={handleShowMoreOptions}>{`Show More Options (${optionsSize - optionsQuantity})`}</div>
-        :
-        <div className='ResultBox_ShowMore' onClick={() => null}>{`There's no more options`}</div>
-
-      } */}
-    </div>
+    </>
   )
 }
 
