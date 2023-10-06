@@ -134,7 +134,6 @@ function App() {
   const handleNext = () => {
     if (results?.next) {
       const data: SearchParameters = {
-        breeds: [searchText]
       }
       searchDogsID(data, results?.next)
     }
@@ -142,7 +141,6 @@ function App() {
   const handlePrev = () => {
     if (results?.prev) {
       const data: SearchParameters = {
-        breeds: [searchText]
       }
       searchDogsID(data, results?.prev)
     }
@@ -185,6 +183,10 @@ function App() {
             setBreadsSelection={setBreadsSelection}
             handleSearch={() => handleSearch('/dogs/search')}
           />
+          {
+            results !== undefined &&
+            <p>Total {results.total} results</p>
+          }
           <ResultsComponent
             results={results}
             options={dogsFound}
