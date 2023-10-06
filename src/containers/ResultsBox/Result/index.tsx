@@ -1,16 +1,19 @@
 import React from 'react'
 import "./styles.css"
 import { Dog } from '../../../types/Dog'
+import { Location } from '../../../types/Location'
 
 interface ResultProps{
   handleClick : () => void
   value: Dog,
+  location: Location
 }
 
 const Result: React.FC<ResultProps> = (props) => {
   const {
     handleClick,
     value,
+    location
   } = props
 
   const toggleOptions = () => {
@@ -25,7 +28,10 @@ const Result: React.FC<ResultProps> = (props) => {
         <div className='Result_Container'>
           <div className='Result_Age'>🕐{value.age} years</div>
           <div className='Result_Age'>🐶{value.breed}</div>
-          <div className='Result_Age'>🏠: {value.zip_code}</div>
+          {
+            location &&
+            <div className='Result_Age'>🏠: {`${location.county}, ${location.state}, ${location.city}`}</div>
+          }
         </div>
       <div className='Result_Container'>
       </div>

@@ -6,7 +6,7 @@ import ResultsComponent from './containers/ResultsBox';
 import Loading from './components/LoadingComponent';
 import { Dog } from './types/Dog';
 import { DogsSearchProps } from './types/DogsSearch';
-import MultiSelectionComponent from './components/MultiselectionComponent';
+import { Location } from './types/Location';
 
 interface SearchParameters{
   breeds?: string[],
@@ -14,6 +14,8 @@ interface SearchParameters{
   ageMin?: number,
   ageMax?: number,
 }
+
+
 
 const requestIDs = (direction: string, data: SearchParameters): Promise<string> => {
   return new Promise<string>((res, rej) => {
@@ -91,6 +93,7 @@ const requestBreads = (): Promise<string> => {
   })
 }
 
+
 function App() {
   const [searchText, setSearchText] = React.useState<string>("");
   const [loading, setLoading] = React.useState<string>("");
@@ -101,6 +104,7 @@ function App() {
   const [breadsSelection, setBreadsSelection] = React.useState<string[]>([]);
   const [minValue, setMinValue] = React.useState<number|undefined>(undefined);
   const [maxValue, setMaxValue] = React.useState<number|undefined>(undefined);
+  const [locations, setLocations] = React.useState<Location[]>([]);
 
   async function searchDogsID(parameters: SearchParameters, link: string) {
     if (authenticated) {
@@ -109,7 +113,18 @@ function App() {
       setResults(destructure)
       const rawDogsData = await buildPostQuery('/dogs/?=', destructure.resultIds);
       const Dogs: Dog[] = JSON.parse(rawDogsData);
+      await searchDogsLocations(Dogs)
       setDogsFound(Dogs);
+    }
+  }
+
+  async function searchDogsLocations(dogs: Dog[]) {
+    if (authenticated) {
+      const zipCodes = dogs.map(dog => dog.zip_code);
+      const LocationsRaw = await buildPostQuery('/locations', zipCodes)
+      console.log(LocationsRaw);
+      const locations: Location[] = JSON.parse(LocationsRaw);
+      setLocations(locations);
     }
   }
 
@@ -189,6 +204,7 @@ function App() {
           }
           <ResultsComponent
             results={results}
+            locations={locations}
             options={dogsFound}
             handleNext={handleNext}
             handlePrev={handlePrev}
