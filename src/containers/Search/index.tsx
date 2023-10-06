@@ -1,17 +1,26 @@
 import React from "react"
 import ButtonComponent from "../../components/ButtonComponent"
 import "./styles.css"
+import MultiSelectionComponent from '../../components/MultiselectionComponent';
 
 interface SearchMenuProps {
-    searchText: string,
-    setSearchText: React.Dispatch<React.SetStateAction<string>>,
+    breads: string[],
+    min: number | undefined,
+    max: number | undefined,
+    setMin: React.Dispatch<React.SetStateAction<number | undefined>>,
+    setMax: React.Dispatch<React.SetStateAction<number | undefined>>,
+    setBreadsSelection: React.Dispatch<React.SetStateAction<string[]>>,
     handleSearch: () => void
 }
 
 const SearchMenu: React.FC<SearchMenuProps> = (props) => {
     const {
-        searchText,
-        setSearchText,
+        min,
+        max,
+        breads,
+        setMin,
+        setMax,
+        setBreadsSelection,
         handleSearch
     } = props;
 
@@ -19,29 +28,47 @@ const SearchMenu: React.FC<SearchMenuProps> = (props) => {
       handleSearch();
     }
 
-    const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = event => {
-      if (event.key === "Enter") {
-        handleClick();
+    // Update the text to be searched every type of the user
+    const handleChangeMin: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+      setMin(undefined);
+      if(event.target.value){
+        setMin(parseInt(event.target.value));
+      }
+    }
+    const handleChangeMax: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+      setMax(undefined);
+      if(event.target.value){
+        setMax(parseInt(event.target.value));
       }
     }
 
-    // Update the text to be searched every type of the user
-    const handleChangeSearchText: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-      setSearchText(event.target.value);
+    const handleSelectBreads = (data: {value: string;label: string;}[]) => {
+      console.log(data);
+      const destructured = data.map(bread => bread.value);
+      setBreadsSelection(destructured)
     }
 
     return (
       <div className='Search_Menu'>
         Search in Data Base
+        <MultiSelectionComponent
+            optionsData={breads}
+            onClick={handleSelectBreads}
+          />
         <div className='Search_Bar'>
           <input
             className='Search_Input'
-            type="search"
-            id="query"
-            onKeyDown={handleKeyDown}
-            onChange={handleChangeSearchText}
-            value={searchText}
-            placeholder='Write a text to search'
+            type="number"
+            onChange={handleChangeMin}
+            value={min}
+            placeholder='Age Min'
+          />
+          <input
+            className='Search_Input'
+            type="number"
+            onChange={handleChangeMax}
+            value={max}
+            placeholder='Age Max'
           />
           <ButtonComponent title="Search" className='Search_Button' text='🔍' handleClick={handleClick} />
         </div>

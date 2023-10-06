@@ -22,25 +22,6 @@ const ResultsComponent: React.FC<ResultsComponentProps> = (props) => {
     handlePrev
   } = props;
 
-  // const [optionsQuantity, setOptionsQuantity] = React.useState(3 > options.length? options.length : 3)
-
-  // const optionsSize = options.length;
-
-  // const handleShowMoreOptions = () => {
-  //   const numberOfElementsToAdd = 5;
-
-  //   if (optionsSize < optionsQuantity) {
-  //     setOptionsQuantity(0)
-  //   }
-
-  //   if ((optionsQuantity + numberOfElementsToAdd) >= optionsSize) {
-  //     setOptionsQuantity(optionsSize)
-  //   }
-  //   setOptionsQuantity(optionsQuantity + numberOfElementsToAdd)
-  // }
-
-
-
   return (
     <>
       <div className='ResultBox'>
