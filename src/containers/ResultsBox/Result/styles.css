@@ -9,6 +9,18 @@
     border: 2px solid white;
     padding: 10px;
 }
+.Result_Selected{
+    background-color: #E2A300;
+    height: 450px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 2px solid white;
+    padding: 10px;
+}
 
 .Result:hover
 {

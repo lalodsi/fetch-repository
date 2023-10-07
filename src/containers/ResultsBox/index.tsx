@@ -12,7 +12,8 @@ interface ResultsComponentProps {
   options: Dog[],
   locations: Location[]
   handleNext: () => void,
-  handlePrev: () => void
+  handlePrev: () => void,
+  selectedDogs: Dog[]
 }
 
 const ResultsComponent: React.FC<ResultsComponentProps> = (props) => {
@@ -22,12 +23,13 @@ const ResultsComponent: React.FC<ResultsComponentProps> = (props) => {
     locations,
     results,
     handleNext,
-    handlePrev
+    handlePrev,
+    selectedDogs
   } = props;
 
   console.log(results);
   console.log(locations);
-  
+  const selectedDogsIDs = selectedDogs.map(dog => dog.id)
 
   return (
     <>
@@ -41,6 +43,7 @@ const ResultsComponent: React.FC<ResultsComponentProps> = (props) => {
             return (
               <Result
                 key={index}
+                selected={selectedDogsIDs.includes(option.id)}
                 value={option}
                 location={locations[index]}
                 handleClick={() => clickHandler(data)}

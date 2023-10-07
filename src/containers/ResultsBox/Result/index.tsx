@@ -6,21 +6,23 @@ import { Location } from '../../../types/Location'
 interface ResultProps{
   handleClick : () => void
   value: Dog,
-  location?: Location
+  location?: Location,
+  selected: boolean
 }
 
 const Result: React.FC<ResultProps> = (props) => {
   const {
     handleClick,
     value,
-    location
+    location,
+    selected
   } = props
 
   const toggleOptions = () => {
     handleClick()
   }
   return (
-    <div className='Result' onClick={toggleOptions} >
+    <div className={selected ? "Result_Selected" : "Result"} onClick={toggleOptions} >
       <img src={value.img} className='Result_Image' />
         <div className='Result_Container'>
           <div className='Result_Name'>{value.name}</div>

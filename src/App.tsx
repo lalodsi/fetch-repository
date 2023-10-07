@@ -238,6 +238,7 @@ function App() {
               }
               <ResultsComponent
                 results={results}
+                selectedDogs={selectedDogs}
                 locations={locations}
                 options={dogsFound}
                 handleNext={handleNext}
@@ -250,12 +251,12 @@ function App() {
             menu === "show" &&
             <>
               {
-                selectedDogs.map(dog => <Result value={dog} handleClick={() => {}}/>)
+                selectedDogs.map(dog => <Result selected value={dog} handleClick={() => {}}/>)
               }
               <ButtonComponent text='generate match' handleClick={handleGenerateMatch} />
               {
                 match &&
-                <Result value={match} handleClick={() => {}}/>
+                <Result selected value={match} handleClick={() => {}}/>
               }
             </>
           }
