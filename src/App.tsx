@@ -7,6 +7,8 @@ import Loading from './components/LoadingComponent';
 import { Dog } from './types/Dog';
 import { DogsSearchProps } from './types/DogsSearch';
 import { Location } from './types/Location';
+import ButtonComponent from './components/ButtonComponent';
+import Result from './containers/ResultsBox/Result';
 
 interface SearchParameters{
   breeds?: string[],
@@ -105,6 +107,9 @@ function App() {
   const [minValue, setMinValue] = React.useState<number|undefined>(undefined);
   const [maxValue, setMaxValue] = React.useState<number|undefined>(undefined);
   const [locations, setLocations] = React.useState<Location[]>([]);
+  const [menu, setMenu] = React.useState<string>("");
+  const [selectedDogs, setSelectedDogs] = React.useState<Dog[]>([]);
+  const [match, setMatch] = React.useState<Dog>();
 
   async function searchDogsID(parameters: SearchParameters, link: string) {
     if (authenticated) {
@@ -174,7 +179,31 @@ function App() {
     setLoading("")
   }
 
+  const handleSelectDog = (data: {index: number, dog: Dog}) => {
+    console.log(`You have selected the ${data.index} dog, is ${data.dog.name}!`);
+    setSelectedDogs([
+      ...selectedDogs,
+      data.dog
+    ])
+  }
 
+  const handleSetMenu = (menuText: string) => {
+    setMenu(menuText)
+  }
+
+  const handleGenerateMatch = async () => {
+    console.log("Resultados");
+    const ids = selectedDogs.map(dog => dog.id);
+    const response = await buildPostQuery("/dogs/match", ids)
+    
+    const matchId: {match: string} = JSON.parse(response)
+    console.log(response );
+    const rawDogData = await buildPostQuery('/dogs/?=', [matchId.match]);
+    console.log(rawDogData);
+    const DogsData: Dog[] = JSON.parse(rawDogData);
+    // await searchDogsLocations(DogsData)
+    setMatch(DogsData[0])
+  }
 
   return (
     <div className="App">
@@ -189,27 +218,47 @@ function App() {
       {
         authenticated &&
         <>
-          <SearchMenu
-            breads={breads}
-            min={minValue}
-            max={maxValue}
-            setMin={setMinValue}
-            setMax={setMaxValue}
-            setBreadsSelection={setBreadsSelection}
-            handleSearch={() => handleSearch('/dogs/search')}
-          />
+          <ButtonComponent text='search' handleClick={() => handleSetMenu("search")} />
+          <ButtonComponent text='list' handleClick={() => handleSetMenu("show")} />
           {
-            results !== undefined &&
-            <p>Total {results.total} results</p>
+            menu === "search" &&
+            <>
+              <SearchMenu
+                breads={breads}
+                min={minValue}
+                max={maxValue}
+                setMin={setMinValue}
+                setMax={setMaxValue}
+                setBreadsSelection={setBreadsSelection}
+                handleSearch={() => handleSearch('/dogs/search')}
+              />
+              {
+                results !== undefined &&
+                <p>Total {results.total} results</p>
+              }
+              <ResultsComponent
+                results={results}
+                locations={locations}
+                options={dogsFound}
+                handleNext={handleNext}
+                handlePrev={handlePrev}
+                clickHandler={handleSelectDog}
+              />
+            </>
           }
-          <ResultsComponent
-            results={results}
-            locations={locations}
-            options={dogsFound}
-            handleNext={handleNext}
-            handlePrev={handlePrev}
-            clickHandler={() => {}}
-          />
+          {
+            menu === "show" &&
+            <>
+              {
+                selectedDogs.map(dog => <Result value={dog} handleClick={() => {}}/>)
+              }
+              <ButtonComponent text='generate match' handleClick={handleGenerateMatch} />
+              {
+                match &&
+                <Result value={match} handleClick={() => {}}/>
+              }
+            </>
+          }
         </>
       }
     </div>

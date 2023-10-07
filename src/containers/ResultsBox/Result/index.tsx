@@ -6,7 +6,7 @@ import { Location } from '../../../types/Location'
 interface ResultProps{
   handleClick : () => void
   value: Dog,
-  location: Location
+  location?: Location
 }
 
 const Result: React.FC<ResultProps> = (props) => {

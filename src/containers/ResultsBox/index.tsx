@@ -7,7 +7,7 @@ import { DogsSearchProps } from '../../types/DogsSearch';
 import { Location } from '../../types/Location';
 
 interface ResultsComponentProps {
-  clickHandler: () => void,
+  clickHandler: (data: {index: number, dog: Dog}) => void,
   results: DogsSearchProps | undefined
   options: Dog[],
   locations: Location[]
@@ -34,12 +34,16 @@ const ResultsComponent: React.FC<ResultsComponentProps> = (props) => {
       <div className='ResultBox'>
         {
           options.map((option: Dog, index: number) => {
+            const data = {
+              index,
+              dog: option,
+            }
             return (
               <Result
                 key={index}
                 value={option}
                 location={locations[index]}
-                handleClick={clickHandler}
+                handleClick={() => clickHandler(data)}
               />
             )
           })
