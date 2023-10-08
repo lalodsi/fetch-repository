@@ -284,9 +284,9 @@ function App() {
                   Check the new Match section
                 </div>
               }
-              <div className='ResultBox'>
+              <div className='ResultBox col-9 col-s-6'>
                 {
-                  selectedDogs.map(dog => <Result selected value={dog} handleClick={() => {}}/>)
+                  selectedDogs.map(dog => <Result className='Result_Selected col-5 col-s-4' selected value={dog} handleClick={() => {}}/>)
                 }
               </div>
               {
@@ -307,8 +307,8 @@ function App() {
               <div className='Message'>
                 This is your new friend!
               </div>
-              <div className='ResultBox'>
-                <Result selected value={match} handleClick={() => {}}/>
+              <div className='ResultBox col-9 col-s-6'>
+                <Result className='Result_Selected col-5 col-s-4' selected value={match} handleClick={() => {}}/>
               </div>
             </>
           }

@@ -31,12 +31,20 @@ const SearchMenu: React.FC<SearchMenuProps> = (props) => {
     // Update the text to be searched every type of the user
     const handleChangeMin: React.ChangeEventHandler<HTMLInputElement> = (event) => {
       setMin(undefined);
-      const newValue = event.target.value
-      if(newValue){
-        setMin(parseInt(newValue));
+      const newValue = parseInt(event.target.value)
+      if(newValue >= 0){
+        const MaxAge = 17;
         if (!max) return;
-        if(parseInt(newValue) > max){
-          setMax(parseInt(newValue));
+        if (newValue > MaxAge) {
+          setMin(MaxAge);
+        }
+        if(newValue > max){
+          if (newValue > MaxAge) {
+            setMax(newValue-1);
+          }
+          else{
+            setMax(newValue);
+          }
         }
       }
     }
@@ -44,8 +52,8 @@ const SearchMenu: React.FC<SearchMenuProps> = (props) => {
       const MaxAge = 17;
       setMax(undefined);
       const newValue = parseInt(event.target.value)
-      if(newValue){
-        setMax(newValue > 17 ? 17 : newValue);
+      if(newValue >= 0){
+        setMax(newValue > MaxAge ? MaxAge : newValue);
         if (!min) return;
         if(newValue < min){
           setMin(newValue);
@@ -60,42 +68,46 @@ const SearchMenu: React.FC<SearchMenuProps> = (props) => {
     }
 
     return (
-      <div className='Search_Menu'>
-        Search in Data Base
+      <div className='Search_Menu col-9 col-s-6'>
+        <div className="Search_Title">
+          Search in Data Base
+        </div>
         <div className='Search_Bar'>
         <MultiSelectionComponent
           optionsData={breads}
           onClick={handleSelectBreads}
         />
 
-        <div className="Search_HorizontalContainer">
-          <div className="Search_VerticalContainer">
-            <div className="Search_HorizontalContainer">
-              <label htmlFor="" className='Search_Label'>
-                Age min
-              </label>
-              <input
-                className='Search_Input'
-                type="number"
-                onChange={handleChangeMin}
-                value={min}
-                placeholder='Age Min'
-                min={0}
-              />
+        <div className="Search_HorizontalContainer col-">
+          <div className="Search_HorizontalContainer col-6">
+            <div className='Search_Label t-4 col-6 col-s-3'>
+              Age min
             </div>
-            <div className="Search_HorizontalContainer">
-              <label htmlFor="" className='Search_Label'>Age max</label>
-              <input
-                className='Search_Input'
-                type="number"
-                onChange={handleChangeMax}
-                value={max}
-                placeholder='Age Max'
-                min={0}
-              />
-            </div>
+            <input
+              className='Search_Input t-3'
+              type="number"
+              onChange={handleChangeMin}
+              value={min}
+              placeholder='Age Min'
+              min={0}
+            />
           </div>
-          <ButtonComponent title="Search" className='Search_Button' text='🔍' handleClick={handleClick} />
+          <div className="Search_HorizontalContainer col-6">
+            <div className='Search_Label t-4 col-6 col-s-3'>
+              Age max
+            </div>
+            <input
+              className='Search_Input t-3'
+              type="number"
+              onChange={handleChangeMax}
+              value={max}
+              placeholder='Age Max'
+              min={0}
+            />
+          </div>
+        </div>
+        <div className="Search_HorizontalContainer col-">
+          <ButtonComponent title="Search" className='Search_Button' text='Search for friendly dogs 🔍' handleClick={handleClick} />
         </div>
         </div>
       </div>

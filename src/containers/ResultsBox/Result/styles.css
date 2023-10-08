@@ -1,14 +1,10 @@
 .Result{
-    height: 450px;
-    width: 300px;
     margin-bottom: 15px;
     border: 2px solid white;
     padding: 10px;
 }
 .Result_Selected{
     background-color: #E2A300;
-    height: 450px;
-    width: 300px;
     margin-bottom: 15px;
     border: 2px solid white;
     padding: 10px;
@@ -30,7 +26,7 @@
     justify-content: center;
 }
 .Result_BoxContainer{
-    margin-left: 15px;
+    /* margin-left: 15px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,6 +52,7 @@
 }
 
 .Result_Image{
+    width: 100%;
     border: 2px solid white;
     border-radius: 25px;
     max-height: 280px;

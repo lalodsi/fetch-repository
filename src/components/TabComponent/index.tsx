@@ -16,7 +16,7 @@ const TabComponent: React.FC<TabComponentProps> = (props) => {
     } = props;
 
     return (
-        <div className='TabComponent'>
+        <div className='TabComponent col-12 col-s-6'>
             {
                 options.map(option => {
                     if (option === current) {

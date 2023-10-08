@@ -33,7 +33,7 @@ const ResultsComponent: React.FC<ResultsComponentProps> = (props) => {
 
   return (
     <>
-      <div className='ResultBox'>
+      <div className='ResultBox col-10 col-s-8'>
         {
           options.map((option: Dog, index: number) => {
             const data = {

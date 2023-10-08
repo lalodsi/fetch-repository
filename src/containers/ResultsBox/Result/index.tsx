@@ -7,7 +7,8 @@ interface ResultProps{
   handleClick : () => void
   value: Dog,
   location?: Location,
-  selected: boolean
+  selected: boolean,
+  className?: string
 }
 
 const Result: React.FC<ResultProps> = (props) => {
@@ -15,14 +16,25 @@ const Result: React.FC<ResultProps> = (props) => {
     handleClick,
     value,
     location,
-    selected
+    selected,
+    className
   } = props
 
   const toggleOptions = () => {
     handleClick()
   }
+
+  const classText =
+    className ?
+      className
+      :
+      selected ?
+        "Result_Selected col-3 col-s-3"
+        :
+        "Result col-3 col-s-3"
+
   return (
-    <div className={selected ? "Result_Selected" : "Result"} onClick={toggleOptions} >
+    <div className={classText} onClick={toggleOptions} >
       <div className='Result_Heart'>{selected? "❤️":"🤍"}</div>
       <div className='Result_BoxContainer'>
         <img src={value.img} className='Result_Image' />

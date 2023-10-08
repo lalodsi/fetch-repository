@@ -50,14 +50,12 @@ const LoginScreen: React.FC<LoginScreenProps> = (props) => {
   }
 
   return (
-    <div className='LoginScreen'>
-      <div className='LoginScreen_Header'>Transform your life into love! ❤️🐶</div>
-      <div className='LoginScreen_Subheader'>Please introduce your name and email to start searching for your next friend 🐕</div>
-      <input onChange={handleChangeName} type="text" name="name" id="" placeholder='name' className='LoginScreen_Input' />
-      <input onChange={handleChangeEmail} type="email" name="email" id="" placeholder='email' className='LoginScreen_Input' />
+    <div className='LoginScreen col-4 col-s-4'>
+      <div className='LoginScreen_Header t-1'>Transform your life into love! ❤️🐶</div>
+      <div className='LoginScreen_Subheader t-2'>Please introduce your name and email to start searching for your next friend 🐕</div>
+      <input onChange={handleChangeName} type="text" name="name" id="" placeholder='name' className='LoginScreen_Input t-3' />
+      <input onChange={handleChangeEmail} type="email" name="email" id="" placeholder='email' className='LoginScreen_Input t-3' />
       <ButtonComponent text='Sign in' handleClick={handleClick} />
-      {/* <button onClick={handleClick}>Sign in</button>
-      <button onClick={handleGetDogsBreads}>Get Dogs</button> */}
     </div>
   )
 }

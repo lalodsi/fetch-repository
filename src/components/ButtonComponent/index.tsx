@@ -18,7 +18,7 @@ const ButtonComponent: React.FC<ButtonComponentProps> = (props) => {
     } = props
 
     return (
-        <button title =  {title ? title : "TBD" } className={className ? className : "ButtonComponent"} onClick={handleClick}>
+        <button title={title ? title : "TBD" } className={className ? className : "ButtonComponent col-3"} onClick={handleClick}>
             {text}
         </button>
     )

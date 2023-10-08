@@ -1,32 +1,35 @@
 .Search_Menu{
-    display: flex;
-    width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  color: white;
+  background-color: honeydew;
+  margin-bottom: 50px;
+  border: 3px solid #6B3500;
+  border-radius: 15px;
+}
 
-    display: flex;
-    flex-direction: column;
-
-    font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    color: white;
-    margin-bottom: 50px;
+.Search_Title{
+  color: #00beae;
+  font-size: 20px;
 }
 
 .Search_Bar{
-  width: 600px;
-  display: flex;
-  flex-direction: column;
-
-  color: inherit;
-  font-family: inherit;
-  
-  border: 2px solid honeydew;
-  border-radius: 0px 6px 6px 0px;
-}
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    font-family: inherit;
+    border-radius: 0px 6px 6px 0px;
+  }
 
 .Search_HorizontalContainer{
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
 .Search_VerticalContainer{
   display: flex;
@@ -34,43 +37,50 @@
 }
 
 .Search_Input{
-  width: 350px;
-  height: 48px;
-  
-  color: inherit;
-  font-family: inherit;
-  font-size: 20px;
-  
-  background-color: transparent;
+  background-color: #00beae;
+  padding: 5px;
+  height: 30px;
+  width: 100%;
+  color: white;
+  border-style: none;
+  font-size: 15px;
   border-style: none;
   border-color: aliceblue;
-  border: 2px solid white;
+  border: 2px solid #6B3500;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .Search_Label{
-  width: 150px;
-  height: 50px;
-  font-size: 20px;
-  border: 2px solid white;
+  background-color: #6B3500;
+  padding-top: 12px;
+  vertical-align: middle;
+  height: 28px;
+  font-size: 15px;
+  border: 2px solid #6B3500;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
 }
 
 .Search_Input::placeholder{
   color: white;
 }
-  
+
 .Search_Button{
-  width: 100px;
-  height: 100px;
-  padding: 0px;
-  font-size: 30px;
+  margin-top: 15px;
+  width: 300px;
+  height: 40px;
+  padding: 10px;
+  padding: 5px;
+  font-size: 18px;
   position: relative;
-  /* right: -274px; */
   cursor: pointer;
   border-style: none;
-  /* border-left: 2px solid white; */
-
-  background-color: transparent;
+  background-color: #00beae;
+  color: white;
+  border: 2px solid #6B3500;
+  border-radius: 10px;
 }
 .Search_Button:hover{
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #00ffea;
 }
