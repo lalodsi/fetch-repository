@@ -23,7 +23,9 @@ const Result: React.FC<ResultProps> = (props) => {
   }
   return (
     <div className={selected ? "Result_Selected" : "Result"} onClick={toggleOptions} >
-      <img src={value.img} className='Result_Image' />
+      <div className='Result_Heart'>{selected? "❤️":"🤍"}</div>
+      <div className='Result_BoxContainer'>
+        <img src={value.img} className='Result_Image' />
         <div className='Result_Container'>
           <div className='Result_Name'>{value.name}</div>
         </div>
@@ -32,10 +34,9 @@ const Result: React.FC<ResultProps> = (props) => {
           <div className='Result_Age'>🐶{value.breed}</div>
           {
             location &&
-            <div className='Result_Age'>🏠: {`${location.county}, ${location.state}, ${location.city}`}</div>
+            <div className='Result_Age'>🏠{`${location.county}, ${location.state}, ${location.city}`}</div>
           }
         </div>
-      <div className='Result_Container'>
       </div>
     </div>
   )

@@ -9,6 +9,7 @@ import { DogsSearchProps } from './types/DogsSearch';
 import { Location } from './types/Location';
 import ButtonComponent from './components/ButtonComponent';
 import Result from './containers/ResultsBox/Result';
+import TabComponent from './components/TabComponent';
 
 interface SearchParameters{
   breeds?: string[],
@@ -107,7 +108,7 @@ function App() {
   const [minValue, setMinValue] = React.useState<number|undefined>(undefined);
   const [maxValue, setMaxValue] = React.useState<number|undefined>(undefined);
   const [locations, setLocations] = React.useState<Location[]>([]);
-  const [menu, setMenu] = React.useState<string>("");
+  const [menu, setMenu] = React.useState<string>("Search");
   const [selectedDogs, setSelectedDogs] = React.useState<Dog[]>([]);
   const [match, setMatch] = React.useState<Dog>();
 
@@ -181,10 +182,24 @@ function App() {
 
   const handleSelectDog = (data: {index: number, dog: Dog}) => {
     console.log(`You have selected the ${data.index} dog, is ${data.dog.name}!`);
-    setSelectedDogs([
-      ...selectedDogs,
-      data.dog
-    ])
+    const IDs = selectedDogs.map(dog => dog.id);
+    const realIndex = IDs.indexOf(data.dog.id)
+    if (realIndex !== -1) {
+      const selectedList = [...selectedDogs]
+      console.log(selectedList);
+      selectedList.splice(realIndex, 1)
+      console.log(selectedList);
+      setSelectedDogs([
+        ...selectedList
+      ])
+    }
+    else{
+      setSelectedDogs([
+        ...selectedDogs,
+        data.dog
+      ])
+    }
+    setMatch(undefined)
   }
 
   const handleSetMenu = (menuText: string) => {
@@ -204,6 +219,14 @@ function App() {
     // await searchDogsLocations(DogsData)
     setMatch(DogsData[0])
   }
+  const tabOptions = match? [
+    "Search",
+    "Show Results",
+    "Match",
+  ] : [
+    "Search",
+    "Show Results",
+  ]
 
   return (
     <div className="App">
@@ -218,10 +241,9 @@ function App() {
       {
         authenticated &&
         <>
-          <ButtonComponent text='search' handleClick={() => handleSetMenu("search")} />
-          <ButtonComponent text='list' handleClick={() => handleSetMenu("show")} />
+          <TabComponent handleClick={handleSetMenu} options={tabOptions} current={menu} />
           {
-            menu === "search" &&
+            menu === "Search" &&
             <>
               <SearchMenu
                 breads={breads}
@@ -234,7 +256,10 @@ function App() {
               />
               {
                 results !== undefined &&
-                <p>Total {results.total} results</p>
+                <p className='Message'>
+                  Total {results.total} friendly results!
+                  Click on a dog to add it to your favourite list
+                </p>
               }
               <ResultsComponent
                 results={results}
@@ -248,16 +273,41 @@ function App() {
             </>
           }
           {
-            menu === "show" &&
+            menu === "Show Results" &&
             <>
               {
-                selectedDogs.map(dog => <Result selected value={dog} handleClick={() => {}}/>)
-              }
-              <ButtonComponent text='generate match' handleClick={handleGenerateMatch} />
-              {
                 match &&
-                <Result selected value={match} handleClick={() => {}}/>
+                <div className='Message'>
+                  We have a new match for you!
+                  Check the new Match section
+                </div>
               }
+              <div className='ResultBox'>
+                {
+                  selectedDogs.map(dog => <Result selected value={dog} handleClick={() => {}}/>)
+                }
+              </div>
+              {
+                (!match && selectedDogs.length === 0) && 
+                <p className='Message'>
+                  You haven't selected any dog. Go to search section and select your next friend ❤️
+                </p>
+              }
+              {
+                (!match && selectedDogs.length !== 0) && 
+                <ButtonComponent text='generate match' handleClick={handleGenerateMatch} />
+              }
+            </>
+          }
+          {
+            menu === "Match" && match &&
+            <>
+              <div className='Message'>
+                This is your new friend!
+              </div>
+              <div className='ResultBox'>
+                <Result selected value={match} handleClick={() => {}}/>
+              </div>
             </>
           }
         </>

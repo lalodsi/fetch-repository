@@ -12,3 +12,20 @@ body{
 
   padding-top: 50px;
 }
+
+.ResultsTitle {
+  font-size: 20px;
+}
+
+.Message {
+  width: 600px;
+  font-size: 20px;
+  font-weight: 700;
+  border: 2px solid white;
+  padding: 15px;
+  background-color: aliceblue;
+  color: #00beae;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  text-align: center;
+}
