@@ -25,6 +25,9 @@ const requestIDs = (direction: string, data: SearchParameters): Promise<string> 
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
+      if (this.status === 401) {
+        rej(this.responseText)
+      }
       if (this.readyState === this.DONE) {
         res(this.response)
       }
@@ -52,8 +55,7 @@ const requestIDs = (direction: string, data: SearchParameters): Promise<string> 
 
     const arrayTotal = [breedsURL,ageMinURL,ageMaxURL].filter(url => url)
     const totalURL = arrayTotal.join('&')
-    console.log(`https://frontend-take-home-service.fetch.com${direction}?${totalURL}`);
-    
+
     xhr.open("GET", `https://frontend-take-home-service.fetch.com${direction}?${totalURL}`);
     xhr.setRequestHeader("Authorization", "Bearer undefined");
     xhr.send();
@@ -65,11 +67,11 @@ const buildPostQuery = (direction: string, data: any = null): Promise<string> =>
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
+      if (this.status === 401) {
+        rej(this.responseText)
+      }
       if (this.readyState === this.DONE) {
-        // console.log(data);
-        // console.log(this.responseText);
         res(this.responseText)
-        
       }
     });
   
@@ -85,6 +87,9 @@ const requestBreads = (): Promise<string> => {
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
+      if (this.status === 401) {
+        rej(this.responseText)
+      }
       if (this.readyState === this.DONE) {
         res(this.response)
       }
@@ -98,7 +103,6 @@ const requestBreads = (): Promise<string> => {
 
 
 function App() {
-  const [searchText, setSearchText] = React.useState<string>("");
   const [loading, setLoading] = React.useState<string>("");
   const [authenticated, setAuthenticated] = React.useState<boolean>(false);
   const [results, setResults] = React.useState<DogsSearchProps>();
@@ -114,34 +118,41 @@ function App() {
 
   async function searchDogsID(parameters: SearchParameters, link: string) {
     if (authenticated) {
-      const raw = await requestIDs(link, parameters)
-      const destructure: DogsSearchProps = JSON.parse(raw);
-      setResults(destructure)
-      const rawDogsData = await buildPostQuery('/dogs/?=', destructure.resultIds);
-      const Dogs: Dog[] = JSON.parse(rawDogsData);
-      await searchDogsLocations(Dogs)
-      setDogsFound(Dogs);
+      try {
+        const raw = await requestIDs(link, parameters)
+        const destructure: DogsSearchProps = JSON.parse(raw);
+        setResults(destructure)
+        const rawDogsData = await buildPostQuery('/dogs/?=', destructure.resultIds);
+        const Dogs: Dog[] = JSON.parse(rawDogsData);
+        await searchDogsLocations(Dogs)
+        setDogsFound(Dogs);
+      } catch (error) {
+        setAuthenticated(false)
+      }
     }
   }
 
   async function searchDogsLocations(dogs: Dog[]) {
     if (authenticated) {
-      const zipCodes = dogs.map(dog => dog.zip_code);
-      const LocationsRaw = await buildPostQuery('/locations', zipCodes)
-      console.log(LocationsRaw);
-      const locations: Location[] = JSON.parse(LocationsRaw);
-      setLocations(locations);
+      try {
+        const zipCodes = dogs.map(dog => dog.zip_code);
+        const LocationsRaw = await buildPostQuery('/locations', zipCodes)
+        const locations: Location[] = JSON.parse(LocationsRaw);
+        setLocations(locations);
+      } catch (error) {
+        setAuthenticated(false)
+      }
     }
   }
 
   async function getBreads() {
-    const raw = await requestBreads();
-    console.log("Getting breads");
     try {
+      const raw = await requestBreads();
       const destructured: string[] = JSON.parse(raw)
       setBreads(destructured)
     } catch (error) {
       setBreads([])
+      setAuthenticated(false)
     }
   }
 
@@ -174,21 +185,16 @@ function App() {
       ageMin: minValue,
       ageMax: maxValue
     }
-    console.log(data);
-    
     await searchDogsID(data, link);
     setLoading("")
   }
 
   const handleSelectDog = (data: {index: number, dog: Dog}) => {
-    console.log(`You have selected the ${data.index} dog, is ${data.dog.name}!`);
     const IDs = selectedDogs.map(dog => dog.id);
     const realIndex = IDs.indexOf(data.dog.id)
     if (realIndex !== -1) {
       const selectedList = [...selectedDogs]
-      console.log(selectedList);
       selectedList.splice(realIndex, 1)
-      console.log(selectedList);
       setSelectedDogs([
         ...selectedList
       ])
@@ -207,14 +213,10 @@ function App() {
   }
 
   const handleGenerateMatch = async () => {
-    console.log("Resultados");
     const ids = selectedDogs.map(dog => dog.id);
     const response = await buildPostQuery("/dogs/match", ids)
-    
     const matchId: {match: string} = JSON.parse(response)
-    console.log(response );
     const rawDogData = await buildPostQuery('/dogs/?=', [matchId.match]);
-    console.log(rawDogData);
     const DogsData: Dog[] = JSON.parse(rawDogData);
     // await searchDogsLocations(DogsData)
     setMatch(DogsData[0])
