@@ -160,6 +160,7 @@ function App() {
     if (authenticated) {
       getBreads();
     }
+    setLoading("")
   }, [authenticated])
 
 
@@ -180,6 +181,7 @@ function App() {
 
   const handleSearch = async (link: string) => {
     setLoading("Loading")
+    setDogsFound([])
     const data: SearchParameters = {
       breeds: breadsSelection,
       ageMin: minValue,
@@ -213,6 +215,7 @@ function App() {
   }
 
   const handleGenerateMatch = async () => {
+    setLoading("Generating a match")
     const ids = selectedDogs.map(dog => dog.id);
     const response = await buildPostQuery("/dogs/match", ids)
     const matchId: {match: string} = JSON.parse(response)
@@ -220,6 +223,7 @@ function App() {
     const DogsData: Dog[] = JSON.parse(rawDogData);
     // await searchDogsLocations(DogsData)
     setMatch(DogsData[0])
+    setLoading("")
   }
   const tabOptions = match? [
     "Search",
@@ -233,12 +237,18 @@ function App() {
   return (
     <div className="App">
       {
-        !authenticated &&
-        <LoginScreen setAutenticated={setAuthenticated} />
+        loading &&
+        <>
+          <Loading />
+          <p>{loading}</p>
+        </>
       }
       {
-        loading &&
-        <Loading />
+        !authenticated &&
+        <LoginScreen
+          setAutenticated={setAuthenticated}
+          setLoading={setLoading}
+        />
       }
       {
         authenticated &&

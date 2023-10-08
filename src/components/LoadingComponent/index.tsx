@@ -1,8 +1,12 @@
 import React from 'react'
+import "./styles.css"
 
 const Loading = () => {
   return (
-    <div>Loading...</div>
+    <div className="lds-ripple">
+      <div></div>
+      <div></div>
+    </div>
   )
 }
 

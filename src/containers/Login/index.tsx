@@ -27,11 +27,13 @@ function Request(name: string, email: string, setAutenticated: React.Dispatch<Re
 
 interface LoginScreenProps{
   setAutenticated: React.Dispatch<React.SetStateAction<boolean>>
+  setLoading: React.Dispatch<React.SetStateAction<string>>
 }
 
 const LoginScreen: React.FC<LoginScreenProps> = (props) => {
   const {
-    setAutenticated
+    setAutenticated,
+    setLoading
   } = props
 
   const [name, setName] = React.useState<string>("")
@@ -45,6 +47,7 @@ const LoginScreen: React.FC<LoginScreenProps> = (props) => {
   }
 
   const handleClick = () => {
+      setLoading("Accesing...")
       console.log(`Nombre: ${name}, Email: ${email}`)
       Request(name, email, setAutenticated);
   }
