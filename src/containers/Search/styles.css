@@ -1,7 +1,7 @@
 .Search_Menu{
     display: flex;
     width: 600px;
-    
+
     display: flex;
     flex-direction: column;
 
@@ -10,50 +10,67 @@
     text-align: center;
     color: white;
     margin-bottom: 50px;
-  }
-  
-  .Search_Bar{
-    width: 600px;
-    display: flex;
-    flex-direction: row;
-  
-    color: inherit;
-    font-family: inherit;
-    
-    border: 2px solid honeydew;
-    border-radius: 0px 6px 6px 0px;
-  }
-  
-.Search_Input{
-  width: 570px;
-  height: 30px;
+}
+
+.Search_Bar{
+  width: 600px;
+  display: flex;
+  flex-direction: column;
 
   color: inherit;
   font-family: inherit;
-  font-size: 20px;
+  
+  border: 2px solid honeydew;
+  border-radius: 0px 6px 6px 0px;
+}
 
+.Search_HorizontalContainer{
+  display: flex;
+  flex-direction: row;
+}
+.Search_VerticalContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.Search_Input{
+  width: 350px;
+  height: 48px;
+  
+  color: inherit;
+  font-family: inherit;
+  font-size: 20px;
+  
   background-color: transparent;
   border-style: none;
   border-color: aliceblue;
-  border-left: 2px solid white;
+  border: 2px solid white;
+}
+
+.Search_Label{
+  width: 150px;
+  height: 50px;
+  font-size: 20px;
+  border: 2px solid white;
 }
 
 .Search_Input::placeholder{
   color: white;
 }
   
-  .Search_Button{
-    width: 30px;
-    height: 30px;
-    padding: 0px;
-    position: relative;
-    /* right: -274px; */
-    cursor: pointer;
-    border-style: none;
-    border-left: 2px solid white;
-  
-    background-color: transparent;
-  }
-  .Search_Button:hover{
-    background-color: rgba(255, 255, 255, 0.2);
-  }
+.Search_Button{
+  width: 100px;
+  height: 100px;
+  padding: 0px;
+  font-size: 30px;
+  position: relative;
+  /* right: -274px; */
+  cursor: pointer;
+  border-style: none;
+  /* border-left: 2px solid white; */
+
+  background-color: transparent;
+}
+.Search_Button:hover{
+  background-color: rgba(255, 255, 255, 0.2);
+}

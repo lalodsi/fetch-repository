@@ -31,14 +31,25 @@ const SearchMenu: React.FC<SearchMenuProps> = (props) => {
     // Update the text to be searched every type of the user
     const handleChangeMin: React.ChangeEventHandler<HTMLInputElement> = (event) => {
       setMin(undefined);
-      if(event.target.value){
-        setMin(parseInt(event.target.value));
+      const newValue = event.target.value
+      if(newValue){
+        setMin(parseInt(newValue));
+        if (!max) return;
+        if(parseInt(newValue) > max){
+          setMax(parseInt(newValue));
+        }
       }
     }
     const handleChangeMax: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+      const MaxAge = 17;
       setMax(undefined);
-      if(event.target.value){
-        setMax(parseInt(event.target.value));
+      const newValue = parseInt(event.target.value)
+      if(newValue){
+        setMax(newValue > 17 ? 17 : newValue);
+        if (!min) return;
+        if(newValue < min){
+          setMin(newValue);
+        }
       }
     }
 
@@ -51,26 +62,41 @@ const SearchMenu: React.FC<SearchMenuProps> = (props) => {
     return (
       <div className='Search_Menu'>
         Search in Data Base
-        <MultiSelectionComponent
-            optionsData={breads}
-            onClick={handleSelectBreads}
-          />
         <div className='Search_Bar'>
-          <input
-            className='Search_Input'
-            type="number"
-            onChange={handleChangeMin}
-            value={min}
-            placeholder='Age Min'
-          />
-          <input
-            className='Search_Input'
-            type="number"
-            onChange={handleChangeMax}
-            value={max}
-            placeholder='Age Max'
-          />
+        <MultiSelectionComponent
+          optionsData={breads}
+          onClick={handleSelectBreads}
+        />
+
+        <div className="Search_HorizontalContainer">
+          <div className="Search_VerticalContainer">
+            <div className="Search_HorizontalContainer">
+              <label htmlFor="" className='Search_Label'>
+                Age min
+              </label>
+              <input
+                className='Search_Input'
+                type="number"
+                onChange={handleChangeMin}
+                value={min}
+                placeholder='Age Min'
+                min={0}
+              />
+            </div>
+            <div className="Search_HorizontalContainer">
+              <label htmlFor="" className='Search_Label'>Age max</label>
+              <input
+                className='Search_Input'
+                type="number"
+                onChange={handleChangeMax}
+                value={max}
+                placeholder='Age Max'
+                min={0}
+              />
+            </div>
+          </div>
           <ButtonComponent title="Search" className='Search_Button' text='🔍' handleClick={handleClick} />
+        </div>
         </div>
       </div>
     )
