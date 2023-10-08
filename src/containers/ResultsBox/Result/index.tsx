@@ -29,9 +29,9 @@ const Result: React.FC<ResultProps> = (props) => {
       className
       :
       selected ?
-        "Result_Selected col-3 col-s-3"
+        "Result_Selected col-4 col-s-3"
         :
-        "Result col-3 col-s-3"
+        "Result col-4 col-s-3"
 
   return (
     <div className={classText} onClick={toggleOptions} >

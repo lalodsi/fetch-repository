@@ -52,7 +52,7 @@ const ResultsComponent: React.FC<ResultsComponentProps> = (props) => {
           })
         }
       </div>
-      <div className='ResultBox_ShowMore'>
+      <div className='ResultBox_ShowMore col-8 col-s-8'>
         {
           results?.prev &&
           <ButtonComponent text='prev' handleClick={handlePrev} />
